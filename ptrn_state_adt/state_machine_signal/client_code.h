@@ -11,3 +11,4 @@ void destroySignal(SignalMakerPtr);
 // Состояния могут быть внутренними?
 void stateUp(SignalMakerPtr instance);
 void stateDown(SignalMakerPtr instance);
+void stateWait(SignalMakerPtr instance);

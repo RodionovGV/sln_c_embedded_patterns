@@ -132,6 +132,7 @@
     <ClCompile Include="state_machine_signal\state_dummy_default.c" />
     <ClCompile Include="state_machine_signal\state_work_down.c" />
     <ClCompile Include="state_machine_signal\state_work_up.c" />
+    <ClCompile Include="state_machine_signal\state_work_wait.c" />
     <ClCompile Include="state_machine_watch\DigitalStopWatch.c" />
     <ClCompile Include="state_machine_watch\StartedState.c" />
     <ClCompile Include="state_machine_watch\StoppedState.c" />

@@ -11,8 +11,13 @@ static void defaultDown(SignalStatePtr s) {
 
 }
 
+static void defaultWait(SignalStatePtr s) {
+
+}
+
 // Для каждого состояния нужно провисать default
 void defaultSignalImplementation(SignalStatePtr s) {
 	s->down = defaultDown;
 	s->up = defaultUp;
+	s->wait = defaultWait;
 }

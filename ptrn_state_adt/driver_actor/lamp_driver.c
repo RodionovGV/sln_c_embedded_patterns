@@ -10,6 +10,7 @@ typedef void (*LampActionFunc)(void);
 struct LampDriver {
     // данные драйвера
     int gpio_pin;
+    int counter;
 };
 
 // статично создаю драйвер
@@ -19,6 +20,7 @@ void createLampDriver(void) {
     driver = malloc(sizeof * driver);
     if (driver) {
         driver->gpio_pin = 123; // пример
+        driver->counter = -10;
     }
     return;
 }
@@ -31,6 +33,15 @@ void turnOnLamp() {
     driver->gpio_pin = 1;
     printf("Lamp ON (GPIO %d)\n", driver->gpio_pin);
     // реальная логика включения света
+}
+
+int turnWaitLamp() {
+    int result = 0;
+    driver->counter++;
+    if (driver->counter > 10) {
+        result = 1;
+    }
+    return result;
 }
 
 void turnOffLamp() {

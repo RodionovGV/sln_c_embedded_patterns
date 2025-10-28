@@ -60,6 +60,9 @@
     <ClCompile Include="driver_actor\lamp_driver.c">
       <Filter>driver_actor</Filter>
     </ClCompile>
+    <ClCompile Include="state_machine_signal\state_work_wait.c">
+      <Filter>state_machine_signal</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="state_machine_signal\client_code.h">
