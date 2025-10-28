@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="state_machine_watch">
+      <UniqueIdentifier>{46595607-06f4-4aed-81f8-4a656fd2309a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="state_machine_signal">
+      <UniqueIdentifier>{15b002a8-7dfb-458b-9173-d408ffa6995c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Includes">
+      <UniqueIdentifier>{5786aee9-a30e-4111-869e-355d64bdd7d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="driver_actor">
+      <UniqueIdentifier>{7223eb9e-ae3b-4c6c-95b0-06bc6ffbd9c9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ptrn_state_adt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="state_machine_watch\DigitalStopWatch.c">
+      <Filter>state_machine_watch</Filter>
+    </ClCompile>
+    <ClCompile Include="state_machine_watch\StartedState.c">
+      <Filter>state_machine_watch</Filter>
+    </ClCompile>
+    <ClCompile Include="state_machine_watch\StoppedState.c">
+      <Filter>state_machine_watch</Filter>
+    </ClCompile>
+    <ClCompile Include="state_machine_watch\TickState.c">
+      <Filter>state_machine_watch</Filter>
+    </ClCompile>
+    <ClCompile Include="state_machine_watch\WatchState.c">
+      <Filter>state_machine_watch</Filter>
+    </ClCompile>
+    <ClCompile Include="state_machine_signal\client_code.c">
+      <Filter>state_machine_signal</Filter>
+    </ClCompile>
+    <ClCompile Include="state_machine_signal\state_dummy_default.c">
+      <Filter>state_machine_signal</Filter>
+    </ClCompile>
+    <ClCompile Include="state_machine_signal\state_work_down.c">
+      <Filter>state_machine_signal</Filter>
+    </ClCompile>
+    <ClCompile Include="state_machine_signal\state_work_up.c">
+      <Filter>state_machine_signal</Filter>
+    </ClCompile>
+    <ClCompile Include="driver_actor\lamp_driver.c">
+      <Filter>driver_actor</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="state_machine_signal\client_code.h">
+      <Filter>state_machine_signal</Filter>
+    </ClInclude>
+    <ClInclude Include="state_machine_signal\state_dummy_default.h">
+      <Filter>state_machine_signal</Filter>
+    </ClInclude>
+    <ClInclude Include="state_machine_signal\StateDown.h">
+      <Filter>state_machine_signal</Filter>
+    </ClInclude>
+    <ClInclude Include="state_machine_signal\StateInternal.h">
+      <Filter>state_machine_signal</Filter>
+    </ClInclude>
+    <ClInclude Include="state_machine_signal\StateUp.h">
+      <Filter>state_machine_signal</Filter>
+    </ClInclude>
+    <ClInclude Include="state_machine_watch\DigitalStopWatch.h">
+      <Filter>state_machine_watch</Filter>
+    </ClInclude>
+    <ClInclude Include="state_machine_watch\StartedState.h">
+      <Filter>state_machine_watch</Filter>
+    </ClInclude>
+    <ClInclude Include="state_machine_watch\StoppedState.h">
+      <Filter>state_machine_watch</Filter>
+    </ClInclude>
+    <ClInclude Include="state_machine_watch\TickState.h">
+      <Filter>state_machine_watch</Filter>
+    </ClInclude>
+    <ClInclude Include="state_machine_watch\WatchState.h">
+      <Filter>state_machine_watch</Filter>
+    </ClInclude>
+    <ClInclude Include="state_machine_watch\WatchStateInternal.h">
+      <Filter>state_machine_watch</Filter>
+    </ClInclude>
+    <ClInclude Include="driver_actor\lamp_driver.h">
+      <Filter>driver_actor</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
