@@ -12,3 +12,6 @@ void destroySignal(SignalMakerPtr);
 void stateUp(SignalMakerPtr instance);
 void stateDown(SignalMakerPtr instance);
 void stateWait(SignalMakerPtr instance);
+
+
+void runStateMachine(SignalMakerPtr instance);

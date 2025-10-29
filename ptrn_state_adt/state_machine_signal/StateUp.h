@@ -2,4 +2,4 @@
 
 #include "state_dummy_default.h"
 
-void transitionToUp(SignalStatePtr s);
+SignalStatePtr transitionToUp();

@@ -32,9 +32,10 @@ int main()
 	SignalMakerPtr s = createSignal();
 
 	for (int i = 0; i < 400; i++) {
-		stateUp(s);
-		stateWait(s);
-		stateDown(s);
+		//stateUp(s);
+		//stateWait(s);
+		//stateDown(s);
+		runStateMachine(s);
 	}
 
 }

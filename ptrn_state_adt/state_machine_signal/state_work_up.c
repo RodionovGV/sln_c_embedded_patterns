@@ -4,6 +4,8 @@
 #include "StateUp.h"
 #include "StateInternal.h"
 
+#include "client_code.h"
+
 // cohesive state
 #include "StateDown.h"
 
@@ -32,11 +34,19 @@ static void up_state(SignalStatePtr s, StateEvents events){
 	}
 }
 
-void transitionToUp(SignalStatePtr s) {
-	defaultSignalImplementation(s);
-	s->name = "Up";
-	s->up = up_state;
+SignalStatePtr transitionToUp(void) {
+	static struct SignalState up_state_static;
+	static int initialized = 0;
+
+	if (0 == initialized) {
+		defaultSignalImplementation(&up_state);
+		up_state_static.up = up_state;
+		initialized = 1;
+	}
+	//s->name = "Up";
+	//s->up = up_state;
 
 	//s->signal = 0; // start from zero
 	// entry to up_state
+	return &up_state_static;
 }
