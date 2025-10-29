@@ -1,5 +1,7 @@
 #include <stdlib.h> // NULL, malloc
 
+#include "logModule.h"
+
 #include "client_code.h"
 #include "StateInternal.h"
 
@@ -14,6 +16,7 @@ struct SignalMaker {
 };
 
 SignalMakerPtr createSignal(void) {
+	LOG_DBG("RUN: createSignal");
 	SignalMakerPtr instance = malloc(sizeof * instance);
 
 	createLampDriver();
@@ -25,12 +28,14 @@ SignalMakerPtr createSignal(void) {
 }
 
 void destroySignal(SignalMakerPtr instance) {
+	LOG_DBG("RUN: destroySignal");
 	free(instance);
 	destroyLampDriver();
 }
 
 void stateUp(SignalMakerPtr instance)
 {
+	LOG_DBG("RUN: stateUp");
 	StateEvents events = {
 	.on_entry = turnOnLamp,
 	.on_do = NULL,

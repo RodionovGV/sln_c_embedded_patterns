@@ -71,7 +71,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>Includes;driver_actor;$(ProjectDir)lib;$(IncludePath)</IncludePath>
+    <IncludePath>Includes;driver_actor;$(ProjectDir)lib;$(ProjectDir)..\utils;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)lib\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -104,7 +104,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>USE_LOG;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
@@ -129,6 +129,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\YandexDisk\StartUp_HW\_c_\slog\src\slog.c" />
+    <ClCompile Include="..\utils\logModule.c" />
     <ClCompile Include="driver_actor\lamp_driver.c" />
     <ClCompile Include="ptrn_state_adt.cpp" />
     <ClCompile Include="state_machine_signal\client_code.c" />
