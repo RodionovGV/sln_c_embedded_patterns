@@ -35,7 +35,7 @@ void turnOnLamp() {
     // реальная логика включения света
 }
 
-int turnWaitLamp() {
+int turnWaitLamp(void) {
     int result = 0;
     driver->counter++;
     if (driver->counter > 10) {

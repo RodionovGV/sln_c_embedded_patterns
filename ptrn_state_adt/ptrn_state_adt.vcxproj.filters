@@ -63,6 +63,9 @@
     <ClCompile Include="state_machine_signal\state_work_wait.c">
       <Filter>state_machine_signal</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\YandexDisk\StartUp_HW\_c_\slog\src\slog.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="state_machine_signal\client_code.h">
