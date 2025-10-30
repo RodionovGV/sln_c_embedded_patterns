@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 #include "state_dummy_default.h"
-#include "StateInternal.h"
+#include "state_internal.h"
 
 static void defaultUp(SignalStatePtr s) {
 

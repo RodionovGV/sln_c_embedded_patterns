@@ -1,6 +1,8 @@
-#include "lamp_driver.h"
 #include <stdio.h>
 #include <stdlib.h>
+
+#include "logModule.h"
+#include "lamp_driver.h"
 
 typedef struct LampDriver* LampDriverPtr;
 
@@ -31,7 +33,8 @@ void destroyLampDriver() {
 
 void turnOnLamp() {
     driver->gpio_pin = 1;
-    printf("Lamp ON (GPIO %d)\n", driver->gpio_pin);
+	LOG_DBG_TEXT("turnOnLamp()");
+    //printf("Lamp ON (GPIO %d)\n", driver->gpio_pin);
     // реальная логика включения света
 }
 
@@ -46,6 +49,7 @@ int turnWaitLamp(void) {
 
 void turnOffLamp() {
     driver->gpio_pin = 0;
-    printf("Lamp OFF (GPIO %d)\n", driver->gpio_pin);
+	LOG_DBG_TEXT("turnOffLamp()");
+    //printf("Lamp OFF (GPIO %d)\n", driver->gpio_pin);
     // реальная логика выключения света
 }

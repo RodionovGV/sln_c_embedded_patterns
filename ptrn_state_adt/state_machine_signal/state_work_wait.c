@@ -3,12 +3,12 @@
 #include "logModule.h"
 
 #include "state_dummy_default.h"
-#include "StateInternal.h"
+#include "state_internal.h"
 
 #include "state_work_wait.h"
 
 // cohesive state
-#include "StateUp.h"
+#include "state_work_up.h"
 
 static void up_wait(SignalStatePtr s, StateEvents events){
 	static int first_entry = 1;
@@ -17,15 +17,14 @@ static void up_wait(SignalStatePtr s, StateEvents events){
 
 	// ON_ENTRY
 	if (first_entry && events.on_entry) {
-		LOG_DBG("WAIT ON_ENTRY");
-		printf("Wait state - ONENTRY: ");
+		LOG_DBG_TEXT("WAIT ON_ENTRY");
 		events.on_entry();
 		first_entry = 0;
 	}
 
 	// DO
 	if (events.on_do) {
-		LOG_DBG("WAIT DO");
+		LOG_DBG_TEXT("WAIT DO");
 		events.on_do();
 	}
 
@@ -33,16 +32,22 @@ static void up_wait(SignalStatePtr s, StateEvents events){
 
 	// ON_EXIT
 	if (value > 10) {
-		LOG_DBG("WAIT ON_EXIT");
-		events.on_do();
+		LOG_DBG_TEXT("WAIT ON_EXIT");
 		transitionToUp(s);
-		if (events.on_exit) events.on_exit();
 		first_entry = 1;
+		goto exit_from_state;
+	}
+
+exit_from_state:
+	if (events.on_exit) {
+		LOG_DBG_TEXT("[WAIT ON_EXIT]");
+		events.on_exit();
 	}
 }
 
 void transitionToWait(SignalStatePtr s) {
+	LOG_DBG_TEXT("[TRANSITION to WAIT]");
 	defaultSignalImplementation(s);
 	s->name = "Wait";
-	s->down = up_wait;
+	s->wait = up_wait; 
 }

@@ -3,10 +3,10 @@
 #include "logModule.h"
 
 #include "client_code.h"
-#include "StateInternal.h"
+#include "state_internal.h"
 
 // cohensive state
-#include "StateUp.h"
+#include "state_work_up.h"
 
 //
 #include "lamp_driver.h"
@@ -16,7 +16,7 @@ struct SignalMaker {
 };
 
 SignalMakerPtr createSignal(void) {
-	LOG_DBG("RUN: createSignal");
+	LOG_DBG_TEXT("RUN: createSignal");
 	SignalMakerPtr instance = malloc(sizeof * instance);
 
 	createLampDriver();
@@ -28,14 +28,13 @@ SignalMakerPtr createSignal(void) {
 }
 
 void destroySignal(SignalMakerPtr instance) {
-	LOG_DBG("RUN: destroySignal");
+	LOG_DBG_TEXT("RUN: destroySignal");
 	free(instance);
 	destroyLampDriver();
 }
 
 void stateUp(SignalMakerPtr instance)
 {
-	LOG_DBG("RUN: stateUp");
 	StateEvents events = {
 	.on_entry = turnOnLamp,
 	.on_do = NULL,

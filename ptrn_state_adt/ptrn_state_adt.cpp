@@ -30,15 +30,14 @@ int main()
 	}
 
 	LOG_INIT("Xample");
-	LOG_DBG("Нечего не найдено");
-
 
 	destroyWatch(w);
 
 
 	SignalMakerPtr s = createSignal();
 
-	for (int i = 0; i < 400; i++) {
+	LOG_DBG_TEXT("START CIRCLE");
+	for (int i = 0; i < 60; i++) {
 		stateUp(s);
 		stateWait(s);
 		stateDown(s);
