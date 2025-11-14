@@ -25,6 +25,9 @@
     <Filter Include="driver_actor">
       <UniqueIdentifier>{7223eb9e-ae3b-4c6c-95b0-06bc6ffbd9c9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="state_semaforo">
+      <UniqueIdentifier>{25630af3-de09-4486-923b-740230acae5c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ptrn_state_adt.cpp">
@@ -66,8 +69,20 @@
     <ClCompile Include="..\..\..\..\YandexDisk\StartUp_HW\_c_\slog\src\slog.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\utils\logModule.c">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="state_machine_semaforo\state_yellow.c">
+      <Filter>state_semaforo</Filter>
+    </ClCompile>
+    <ClCompile Include="state_machine_semaforo\states_semaforo_default.c">
+      <Filter>state_semaforo</Filter>
+    </ClCompile>
+    <ClCompile Include="state_machine_semaforo\states_semaforo_implement.c">
+      <Filter>state_semaforo</Filter>
+    </ClCompile>
+    <ClCompile Include="state_machine_semaforo\state_red.c">
+      <Filter>state_semaforo</Filter>
+    </ClCompile>
+    <ClCompile Include="state_machine_semaforo\state_pattern.c">
+      <Filter>state_semaforo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -75,15 +90,6 @@
       <Filter>state_machine_signal</Filter>
     </ClInclude>
     <ClInclude Include="state_machine_signal\state_dummy_default.h">
-      <Filter>state_machine_signal</Filter>
-    </ClInclude>
-    <ClInclude Include="state_machine_signal\StateDown.h">
-      <Filter>state_machine_signal</Filter>
-    </ClInclude>
-    <ClInclude Include="state_machine_signal\StateInternal.h">
-      <Filter>state_machine_signal</Filter>
-    </ClInclude>
-    <ClInclude Include="state_machine_signal\StateUp.h">
       <Filter>state_machine_signal</Filter>
     </ClInclude>
     <ClInclude Include="state_machine_watch\DigitalStopWatch.h">
@@ -106,6 +112,27 @@
     </ClInclude>
     <ClInclude Include="driver_actor\lamp_driver.h">
       <Filter>driver_actor</Filter>
+    </ClInclude>
+    <ClInclude Include="state_machine_signal\state_internal.h">
+      <Filter>state_machine_signal</Filter>
+    </ClInclude>
+    <ClInclude Include="state_machine_semaforo\state_yellow.h">
+      <Filter>state_semaforo</Filter>
+    </ClInclude>
+    <ClInclude Include="state_machine_semaforo\states_semaforo_default.h">
+      <Filter>state_semaforo</Filter>
+    </ClInclude>
+    <ClInclude Include="state_machine_semaforo\states_semaforo_implement.h">
+      <Filter>state_semaforo</Filter>
+    </ClInclude>
+    <ClInclude Include="state_machine_semaforo\states_semaforo_internal.h">
+      <Filter>state_semaforo</Filter>
+    </ClInclude>
+    <ClInclude Include="state_machine_semaforo\state_red.h">
+      <Filter>state_semaforo</Filter>
+    </ClInclude>
+    <ClInclude Include="state_machine_semaforo\state_pattern.h">
+      <Filter>state_semaforo</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

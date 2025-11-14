@@ -19,6 +19,7 @@ extern "C" {
 #define LOG_INIT(filename) log_init(filename)
 #define LOG_DBG(text) log_info(text)
 #define LOG_DBG_TEXT(text) log_info(text)
+#define LOG_DBG_PROGRESS(text, progress_int32) log_progress(text, progress_int32)
 #define LOG_DESTROY() log_destroy() 
 
 #else

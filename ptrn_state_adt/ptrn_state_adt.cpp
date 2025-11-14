@@ -13,6 +13,8 @@ extern "C" {
 #include "state_machine_watch\DigitalStopWatch.h"
 
 #include "state_machine_signal\client_code.h"
+
+#include "state_machine_semaforo/states_semaforo_implement.h"
 }
 
 int main()
@@ -42,6 +44,12 @@ int main()
 		stateWait(s);
 		stateDown(s);
 	}
+
+	SemaforoMakerPtr semaforo = createSemaforo();
+
+	semaforo_stae_mashine(semaforo);
+
+	destroySemaforo(semaforo);
 
 	LOG_DESTROY();
 

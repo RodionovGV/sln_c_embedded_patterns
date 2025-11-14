@@ -110,7 +110,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>slog.lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>pj_dbg_lib.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -129,9 +130,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\YandexDisk\StartUp_HW\_c_\slog\src\slog.c" />
-    <ClCompile Include="..\utils\logModule.c" />
     <ClCompile Include="driver_actor\lamp_driver.c" />
     <ClCompile Include="ptrn_state_adt.cpp" />
+    <ClCompile Include="state_machine_semaforo\states_semaforo_default.c" />
+    <ClCompile Include="state_machine_semaforo\states_semaforo_implement.c" />
+    <ClCompile Include="state_machine_semaforo\state_pattern.c" />
+    <ClCompile Include="state_machine_semaforo\state_red.c" />
+    <ClCompile Include="state_machine_semaforo\state_yellow.c" />
     <ClCompile Include="state_machine_signal\client_code.c" />
     <ClCompile Include="state_machine_signal\state_dummy_default.c" />
     <ClCompile Include="state_machine_signal\state_work_down.c" />
@@ -145,11 +150,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="driver_actor\lamp_driver.h" />
+    <ClInclude Include="state_machine_semaforo\states_semaforo_default.h" />
+    <ClInclude Include="state_machine_semaforo\states_semaforo_implement.h" />
+    <ClInclude Include="state_machine_semaforo\states_semaforo_internal.h" />
+    <ClInclude Include="state_machine_semaforo\state_pattern.h" />
+    <ClInclude Include="state_machine_semaforo\state_red.h" />
+    <ClInclude Include="state_machine_semaforo\state_yellow.h" />
     <ClInclude Include="state_machine_signal\client_code.h" />
     <ClInclude Include="state_machine_signal\state_dummy_default.h" />
-    <ClInclude Include="state_machine_signal\StateDown.h" />
-    <ClInclude Include="state_machine_signal\StateInternal.h" />
-    <ClInclude Include="state_machine_signal\StateUp.h" />
+    <ClInclude Include="state_machine_signal\state_internal.h" />
     <ClInclude Include="state_machine_watch\DigitalStopWatch.h" />
     <ClInclude Include="state_machine_watch\StartedState.h" />
     <ClInclude Include="state_machine_watch\StoppedState.h" />

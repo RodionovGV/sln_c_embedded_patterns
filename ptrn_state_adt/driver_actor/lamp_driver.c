@@ -53,3 +53,21 @@ void turnOffLamp() {
     //printf("Lamp OFF (GPIO %d)\n", driver->gpio_pin);
     // реальная логика выключения света
 }
+
+// Обработчик события, привязанный на прерывание или изменение
+void lamp_event(int state_of_lamp) {
+    
+    switch (state_of_lamp) {
+    case 0:
+        // off
+        break;
+    case 1:
+        // on
+        break;
+    case 2:
+        // wait
+        break;
+    }
+
+}
+
