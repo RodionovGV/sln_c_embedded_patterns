@@ -134,8 +134,11 @@
     <ClCompile Include="ptrn_state_adt.cpp" />
     <ClCompile Include="state_machine_semaforo\states_semaforo_default.c" />
     <ClCompile Include="state_machine_semaforo\states_semaforo_implement.c" />
+    <ClCompile Include="state_machine_semaforo\state_green.c" />
+    <ClCompile Include="state_machine_semaforo\state_green_blink.c" />
     <ClCompile Include="state_machine_semaforo\state_pattern.c" />
     <ClCompile Include="state_machine_semaforo\state_red.c" />
+    <ClCompile Include="state_machine_semaforo\state_red_yellow.c" />
     <ClCompile Include="state_machine_semaforo\state_yellow.c" />
     <ClCompile Include="state_machine_signal\client_code.c" />
     <ClCompile Include="state_machine_signal\state_dummy_default.c" />
@@ -153,8 +156,11 @@
     <ClInclude Include="state_machine_semaforo\states_semaforo_default.h" />
     <ClInclude Include="state_machine_semaforo\states_semaforo_implement.h" />
     <ClInclude Include="state_machine_semaforo\states_semaforo_internal.h" />
+    <ClInclude Include="state_machine_semaforo\state_green.h" />
+    <ClInclude Include="state_machine_semaforo\state_green_blink.h" />
     <ClInclude Include="state_machine_semaforo\state_pattern.h" />
     <ClInclude Include="state_machine_semaforo\state_red.h" />
+    <ClInclude Include="state_machine_semaforo\state_red_yellow.h" />
     <ClInclude Include="state_machine_semaforo\state_yellow.h" />
     <ClInclude Include="state_machine_signal\client_code.h" />
     <ClInclude Include="state_machine_signal\state_dummy_default.h" />
