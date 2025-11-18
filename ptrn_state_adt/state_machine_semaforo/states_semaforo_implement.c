@@ -6,6 +6,7 @@
 ✅green
 ✅green_blink
     circle
+✅yellow_blink
 */
 //#ifdef __cplusplus
 //extern "C" {
@@ -21,7 +22,8 @@
 #include "states_semaforo_internal.h"
 
 // cohesive state
-#include "state_yellow.h"
+//#include "state_yellow.h"
+#include "state_yellow_blink.h"
 
 struct SemaforoMaker {
     long tickTimeWork;
@@ -37,7 +39,8 @@ SemaforoMakerPtr createSemaforo(void){
     if (NULL != instance){
         _instance = instance;
         instance->tickTimeWork = 0;
-        transitionToYellow(&instance->state);
+        //transitionToYellow(&instance->state);
+        transitionToYellowBlink(&instance->state);
     }
     LOG_DBG_TEXT("SEMAFORO CREATE");
 
@@ -112,6 +115,17 @@ void stateGreenBlink(SemaforoMakerPtr instance) {
     instance->state.state_green_blink(&instance->state, events);
 }
 
+void stateYellowBlink(SemaforoMakerPtr instance) {
+    StateSemEvents events = {
+    .on_entry = NULL,
+    .on_do = NULL,
+    .on_exit = NULL,
+    .workTimeToSwitch = 30L, // tics
+    .check_change_state = getWorkTicks
+    };
+    instance->state.state_yellow_blink(&instance->state, events);
+}
+
 void semaforo_stae_mashine(SemaforoMakerPtr instance) {
     char dbg_msg[200];
     sprintf(dbg_msg, "Current state: %s", instance->state.name);
@@ -126,8 +140,8 @@ void semaforo_stae_mashine(SemaforoMakerPtr instance) {
         stateRedYellow(instance);
         stateGreen(instance);
         stateGreenBlink(instance);
-		
-        Sleep(1000); // пауза
+        stateYellowBlink(instance);
+        Sleep(100); // пауза
 
 		sprintf(dbg_msg, "Current state: %s, tick work: %12ld", 
                 instance->state.name, instance->tickTimeWork);

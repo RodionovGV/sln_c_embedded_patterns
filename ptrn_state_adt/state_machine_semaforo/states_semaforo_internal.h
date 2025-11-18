@@ -13,6 +13,7 @@ typedef void (*StateRedFxn)(StateSemaforoPtr, StateSemEvents);
 typedef void (*StateRedYellowFxn)(StateSemaforoPtr, StateSemEvents);
 typedef void (*StateGreenFxn)(StateSemaforoPtr, StateSemEvents);
 typedef void (*StateGreenBlinkFxn)(StateSemaforoPtr, StateSemEvents);
+typedef void (*StateYellowBlinkFxn)(StateSemaforoPtr, StateSemEvents);
 
 // скрытая структура от пользователя
 struct StateSemaforo {
@@ -24,6 +25,7 @@ struct StateSemaforo {
     StateRedYellowFxn state_red_yellow;
     StateGreenFxn state_green;
     StateGreenBlinkFxn state_green_blink;
+    StateYellowBlinkFxn state_yellow_blink;
 };
 
 // per state

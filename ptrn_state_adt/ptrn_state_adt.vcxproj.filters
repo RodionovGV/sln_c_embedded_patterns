@@ -93,6 +93,9 @@
     <ClCompile Include="state_machine_semaforo\state_green_blink.c">
       <Filter>state_semaforo</Filter>
     </ClCompile>
+    <ClCompile Include="state_machine_semaforo\state_yellow_blink.c">
+      <Filter>state_semaforo</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="state_machine_signal\client_code.h">
@@ -150,6 +153,9 @@
       <Filter>state_semaforo</Filter>
     </ClInclude>
     <ClInclude Include="state_machine_semaforo\state_green_blink.h">
+      <Filter>state_semaforo</Filter>
+    </ClInclude>
+    <ClInclude Include="state_machine_semaforo\state_yellow_blink.h">
       <Filter>state_semaforo</Filter>
     </ClInclude>
   </ItemGroup>
