@@ -18,5 +18,18 @@ void semaforo_stae_mashine(SemaforoMakerPtr instance);
 //}
 //#endif
 
+// i prototipi per testi
+SemaforoMakerPtr createSemaforo(void);
+void destroySemaforo(SemaforoMakerPtr instance);
+long getWorkTicks();
+
+void stateYellow(SemaforoMakerPtr instance);
+void stateRed(SemaforoMakerPtr instance);
+void stateRedYellow(SemaforoMakerPtr instance);
+void stateGreen(SemaforoMakerPtr instance);
+void stateGreenBlink(SemaforoMakerPtr instance);
+void stateYellowBlink(SemaforoMakerPtr instance);
+void semaforo_stae_mashine(SemaforoMakerPtr instance);
+
 #endif /* STAES_SEM_IMPLEMENT_H_ */
 
