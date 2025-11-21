@@ -25,19 +25,6 @@ namespace BaseTestGmockNamespace {
         EXPECT_TRUE(true);
     }
 
-    class MockTestFirst {
-    public:
-        MOCK_METHOD(void, SomeMethod, ());
-    };
-
-    TEST(TestCaseName, TestName) {
-        MockTestFirst mock;
-        EXPECT_CALL(mock, SomeMethod);
-        mock.SomeMethod();
-        EXPECT_EQ(1, 1);
-        EXPECT_TRUE(true);
-    }
-
     TEST(SemaforoTest, Test_04_StateFunctionsNotNull) {
         SemaforoMakerPtr semaforo = createSemaforo();
 
@@ -50,7 +37,9 @@ namespace BaseTestGmockNamespace {
 
         destroySemaforo(semaforo);
     }
+}
 
+namespace TestTransition{
 
     class MockTest {
     public:
@@ -69,7 +58,14 @@ namespace BaseTestGmockNamespace {
     // чтобы не писать testing::
     //using testing::InSequence;
     //using testing::Return;
-
+/*
+Тест
+1. Срабатывания on_entry() при входе.
+2. Возврат времени check_change_state() == 16 при первом вхождении.
+3. Выполнение on_do()
+4. Возврат времени check_change_state() == 20 при втором выполнении. 
+5. Выполнение on_exit() при выходе.
+*/
     TEST(YellowStateTest, SwitchToRedWhenTimeout)
     {
         MockTest mock;
@@ -90,7 +86,7 @@ namespace BaseTestGmockNamespace {
 
             EXPECT_CALL(mock, on_do());
 
-            EXPECT_CALL(mock, check_change_state())     // #2
+            EXPECT_CALL(mock, check_change_state())     // #1
                 .WillOnce(testing::Return(20));
 
             EXPECT_CALL(mock, on_exit());
@@ -109,6 +105,76 @@ namespace BaseTestGmockNamespace {
         };
 
         s.state_yellow(&s, events);
+
+        ASSERT_STREQ(s.name, "red_state");
+    }
+/*
+Тест запуска on_do каждый раз при выполнении состояния
+1. При первом вхождении выполняется on_enrty один раз.
+2. При первом вхождении check_change_state возвращает 0.
+
+Далее идут последующие вхождения:
+3. Выполняется on_do TIMES_TO_RUN.
+4. На последующих вхождения check_change_state возвращает 1.
+5. На последнем вхождении check_change_state возвращает 3.
+6. Выполняется on_exit().
+
+*/
+    TEST(YellowStateTest, testOnDo)
+    {
+        MockTest mock;
+        g_mock = &mock;
+        const auto TIMES_TO_RUN = 10;
+
+        {
+            testing::InSequence seq; // Включаем строгий режим
+
+            // 1. Вход
+            EXPECT_CALL(mock, on_entry()).Times(1);
+
+            // 2. Первый проход (специфичный, check возвращает 0)
+            EXPECT_CALL(mock, check_change_state())
+                .WillOnce(testing::Return(0));
+
+            EXPECT_CALL(mock, on_do()).Times(1);
+
+            EXPECT_CALL(mock, check_change_state())
+                .WillOnce(testing::Return(1)); // Возвращаем 1 ровно 1 раз
+
+            // 3. Цикл чередования (со 2-го по предпоследний раз)
+            // Мы генерируем "бусы" ожиданий: Do -> Check -> Do -> Check ...
+            for (int i = 0; i < TIMES_TO_RUN - 2; ++i) {
+                EXPECT_CALL(mock, on_do())
+                    .Times(1); // Ждем ровно 1 раз
+
+                EXPECT_CALL(mock, check_change_state())
+                    .WillOnce(testing::Return(1)); // Возвращаем 1 ровно 1 раз
+            }
+
+            // 4. Последний проход (check возвращает 3/5)
+            EXPECT_CALL(mock, on_do()).Times(1);
+            EXPECT_CALL(mock, check_change_state())
+                .WillOnce(testing::Return(5)); // Код выхода
+
+            // 5. Выход
+            EXPECT_CALL(mock, on_exit()).Times(1);
+        }
+
+
+        StateSemaforo s{};
+        transitionToYellow(&s);
+
+        StateSemEvents events{
+            .on_entry = c_on_entry,
+            .on_do = c_on_do,
+            .on_exit = c_on_exit,
+            .check_change_state = c_check_change_state,
+            .workTimeToSwitch = 3
+        };
+
+        for (int i = 0; i < TIMES_TO_RUN; i++) {
+            s.state_yellow(&s, events);
+        }
 
         ASSERT_STREQ(s.name, "red_state");
     }

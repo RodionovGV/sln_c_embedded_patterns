@@ -15,7 +15,7 @@ extern "C" {
 // cohesive state
 #include "state_red.h"
 
-TState_Data s_data = {.first_entry = 1,
+static TState_Data s_data = {.first_entry = 1,
                       .workStateStartTime = 0,
                       .workTicksState = 0};
 
@@ -33,6 +33,8 @@ static void yellow_state(StateSemaforoPtr s, StateSemEvents events){
         // get start time
         if (events.check_change_state) {
             //LOG_DBG_TEXT("[UP DO]");
+            //long startTime = events.check_change_state();
+            //s_data.workStateStartTime = startTime;
             s_data.workStateStartTime = events.check_change_state();
         }
     }
