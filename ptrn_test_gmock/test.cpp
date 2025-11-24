@@ -124,41 +124,102 @@ namespace TestTransition{
     {
         MockTest mock;
         g_mock = &mock;
-        const auto TIMES_TO_RUN = 10;
+        const auto TIMES_TO_RUN = 20000;
+
+        //// решение в лоб, но съедает стек. При TIMES_TO_RUN = 1000 переполнение стека
+        //// START BRUTFORCE
+        //{
+        //    testing::InSequence seq; // Включаем строгий режим
+
+        //    // 1. Вход
+        //    EXPECT_CALL(mock, on_entry()).Times(1);
+
+        //    // 2. Первый проход (специфичный, check возвращает 0)
+        //    EXPECT_CALL(mock, check_change_state())
+        //        .WillOnce(testing::Return(0));
+
+        //    EXPECT_CALL(mock, on_do()).Times(1);
+
+        //    EXPECT_CALL(mock, check_change_state())
+        //        .WillOnce(testing::Return(1)); // Возвращаем 1 ровно 1 раз
+
+        //    // 3. Цикл чередования (со 2-го по предпоследний раз)
+        //    // Мы генерируем "бусы" ожиданий: Do -> Check -> Do -> Check ...
+        //    for (int i = 0; i < TIMES_TO_RUN - 2; ++i) {
+        //        EXPECT_CALL(mock, on_do())
+        //            .Times(1); // Ждем ровно 1 раз
+
+        //        EXPECT_CALL(mock, check_change_state())
+        //            .WillOnce(testing::Return(1)); // Возвращаем 1 ровно 1 раз
+        //    }
+
+        //    // 4. Последний проход (check возвращает 3/5)
+        //    EXPECT_CALL(mock, on_do()).Times(1);
+        //    EXPECT_CALL(mock, check_change_state())
+        //        .WillOnce(testing::Return(5)); // Код выхода
+
+        //    // 5. Выход
+        //    EXPECT_CALL(mock, on_exit()).Times(1);
+        //}
+        //// END BRUTFORCE
+    // Флаг для проверки чередования.
+    // false = ждем on_do
+    // true  = ждем check_change_state
+        bool waiting_for_check = true;
+
+        // Переменная для подсчета вызовов check
+        int check_calls = 0;
+        int check_1 = 0;
+        int check_2 = 0;
+
 
         {
-            testing::InSequence seq; // Включаем строгий режим
-
-            // 1. Вход
+            testing::InSequence seq;
             EXPECT_CALL(mock, on_entry()).Times(1);
 
-            // 2. Первый проход (специфичный, check возвращает 0)
-            EXPECT_CALL(mock, check_change_state())
-                .WillOnce(testing::Return(0));
+            // Дальше мы не используем InSequence для тела цикла,
+            // так как порядок мы контролируем флагом waiting_for_check
+        }
 
-            EXPECT_CALL(mock, on_do()).Times(1);
+        // == Настройка поведения on_do ==
+        // Он вызывается между проверками.
+        // Всего вызовов на 1 меньше, чем проверок (так как последняя проверка уводит на выход)
+        EXPECT_CALL(mock, on_do())
+        .Times(TIMES_TO_RUN-1)
+        .WillRepeatedly(testing::Invoke([&]() -> void {
+            // Если пришли в on_do, а ждали check (значит два on_do подряд или забыли check)
+            if (waiting_for_check) {
+                ADD_FAILURE() << "Order violation: on_do called when check was expected!";
+                return;
+            }
+            // Теперь мы выполнили работу, следующей должна быть проверка
+            waiting_for_check = true;
+            check_1++;
+            }));
 
-            EXPECT_CALL(mock, check_change_state())
-                .WillOnce(testing::Return(1)); // Возвращаем 1 ровно 1 раз
-
-            // 3. Цикл чередования (со 2-го по предпоследний раз)
-            // Мы генерируем "бусы" ожиданий: Do -> Check -> Do -> Check ...
-            for (int i = 0; i < TIMES_TO_RUN - 2; ++i) {
-                EXPECT_CALL(mock, on_do())
-                    .Times(1); // Ждем ровно 1 раз
-
-                EXPECT_CALL(mock, check_change_state())
-                    .WillOnce(testing::Return(1)); // Возвращаем 1 ровно 1 раз
+        // == Настройка поведения check_change_state ==
+        EXPECT_CALL(mock, check_change_state())
+        .Times(TIMES_TO_RUN) // +1 because on_entry
+        .WillRepeatedly(testing::Invoke([&]() -> int {
+            // Если пришли в check, а ждали on_do (значит два check подряд)
+            if (!waiting_for_check) {
+                ADD_FAILURE() << "Order violation: check called when on_do was expected! " << check_calls;
+                return 0;
             }
 
-            // 4. Последний проход (check возвращает 3/5)
-            EXPECT_CALL(mock, on_do()).Times(1);
-            EXPECT_CALL(mock, check_change_state())
-                .WillOnce(testing::Return(5)); // Код выхода
+            // Проверка выполнена, теперь разрешаем on_do
+            waiting_for_check = false;
 
-            // 5. Выход
-            EXPECT_CALL(mock, on_exit()).Times(1);
-        }
+            check_calls++;
+
+            // Сценарий возвращаемых значений:
+            if (check_calls == 1) return 0;             // Первый вход
+            if (check_calls == TIMES_TO_RUN) return 5;  // Последний вход -> выход
+            return 1;                                   // Обычная работа
+            }));
+
+        // == Выход ==
+        EXPECT_CALL(mock, on_exit()).Times(1);
 
 
         StateSemaforo s{};
