@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ptrn_test", "ptrn_test\ptrn
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ptrn_test_gmock", "ptrn_test_gmock\ptrn_test_gmock.vcxproj", "{9FD2CAC5-B064-47E4-BBE1-112047AECA20}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "drv_mem", "drv_mem\drv_mem.vcxproj", "{28A4E735-8F28-45A3-B78B-8FD24109BEA3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -51,6 +53,14 @@ Global
 		{9FD2CAC5-B064-47E4-BBE1-112047AECA20}.Release|x64.Build.0 = Release|x64
 		{9FD2CAC5-B064-47E4-BBE1-112047AECA20}.Release|x86.ActiveCfg = Release|Win32
 		{9FD2CAC5-B064-47E4-BBE1-112047AECA20}.Release|x86.Build.0 = Release|Win32
+		{28A4E735-8F28-45A3-B78B-8FD24109BEA3}.Debug|x64.ActiveCfg = Debug|x64
+		{28A4E735-8F28-45A3-B78B-8FD24109BEA3}.Debug|x64.Build.0 = Debug|x64
+		{28A4E735-8F28-45A3-B78B-8FD24109BEA3}.Debug|x86.ActiveCfg = Debug|Win32
+		{28A4E735-8F28-45A3-B78B-8FD24109BEA3}.Debug|x86.Build.0 = Debug|Win32
+		{28A4E735-8F28-45A3-B78B-8FD24109BEA3}.Release|x64.ActiveCfg = Release|x64
+		{28A4E735-8F28-45A3-B78B-8FD24109BEA3}.Release|x64.Build.0 = Release|x64
+		{28A4E735-8F28-45A3-B78B-8FD24109BEA3}.Release|x86.ActiveCfg = Release|Win32
+		{28A4E735-8F28-45A3-B78B-8FD24109BEA3}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

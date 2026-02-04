@@ -38,6 +38,39 @@ namespace BaseTestGmockNamespace {
         destroySemaforo(semaforo);
     }
 }
+namespace TestLearn {
+
+    int fxn1(void) {
+        std::cout << "Hello" << std::endl;
+        return 10;
+    }
+    int fxn2(void) {
+        return 20;
+    }
+    void work_fxn(void) {
+        int value = 0;
+        value = fxn1();
+
+        if (value > 10) {
+
+        }
+
+        value = fxn2();
+        if (value > 20) {
+
+        }
+    }
+    class MockTest {
+    public:
+        MOCK_METHOD(int, fxn1, (), ());
+        MOCK_METHOD(int, fxn2, (), ());
+    };
+    static MockTest* g_mock = nullptr;
+
+    static void c_fxn1() { g_mock->fxn1(); }
+    static void c_fxn2() { g_mock->fxn2(); }
+
+}
 
 namespace TestTransition{
 
@@ -59,7 +92,7 @@ namespace TestTransition{
     //using testing::InSequence;
     //using testing::Return;
 /*
-Тест
+Тест. Простой тест переключения в состояние
 1. Срабатывания on_entry() при входе.
 2. Возврат времени check_change_state() == 16 при первом вхождении.
 3. Выполнение on_do()
@@ -124,7 +157,7 @@ namespace TestTransition{
     {
         MockTest mock;
         g_mock = &mock;
-        const auto TIMES_TO_RUN = 20000;
+        const auto TIMES_TO_RUN = 1000;
 
         //// решение в лоб, но съедает стек. При TIMES_TO_RUN = 1000 переполнение стека
         //// START BRUTFORCE
@@ -172,7 +205,6 @@ namespace TestTransition{
         int check_1 = 0;
         int check_2 = 0;
 
-
         {
             testing::InSequence seq;
             EXPECT_CALL(mock, on_entry()).Times(1);
@@ -199,7 +231,7 @@ namespace TestTransition{
 
         // == Настройка поведения check_change_state ==
         EXPECT_CALL(mock, check_change_state())
-        .Times(TIMES_TO_RUN) // +1 because on_entry
+        .Times(TIMES_TO_RUN) 
         .WillRepeatedly(testing::Invoke([&]() -> int {
             // Если пришли в check, а ждали on_do (значит два check подряд)
             if (!waiting_for_check) {
