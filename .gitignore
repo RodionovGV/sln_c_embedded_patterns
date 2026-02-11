@@ -1,0 +1,8 @@
+.vs
+packages
+x64
+*.exe
+*.bin
+*.zip
+_Archive_
+_develop_
