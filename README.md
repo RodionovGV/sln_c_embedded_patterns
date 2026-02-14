@@ -60,3 +60,9 @@ ptrn_test_gmock - тест машины состояния светофора.
 Желтый 3-4 с
 Красный 30 с.
 Красный + Желтый 1-2с
+
+# Observer
+По книге:
+[Adam Tornhill ](https://www.adamtornhill.com/)Patterns in C 
+наблюдатель реализован со списком.
+
