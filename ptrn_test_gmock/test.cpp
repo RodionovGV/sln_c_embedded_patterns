@@ -5,12 +5,12 @@
 extern "C" {
 #include <stdio.h>   // for sprintf
 
-#include "states_semaforo_default.h" // определяем тут StateSemaforoPtr, StateSemEvents
+#include "states_semaforo_default.h" // РѕРїСЂРµРґРµР»СЏРµРј С‚СѓС‚ StateSemaforoPtr, StateSemEvents
 #include "states_semaforo_implement.h"
 #include "states_semaforo_internal.h"
-// состояние
+// СЃРѕСЃС‚РѕСЏРЅРёРµ
 #include "state_yellow.h"
-    // завершение объявления
+    // Р·Р°РІРµСЂС€РµРЅРёРµ РѕР±СЉСЏРІР»РµРЅРёСЏ
     struct SemaforoMaker {
         long tickTimeWork;
         struct StateSemaforo state;
@@ -88,16 +88,16 @@ namespace TestTransition{
     static void c_on_exit() { g_mock->on_exit(); }
     static long c_check_change_state() { return g_mock->check_change_state(); }
 
-    // чтобы не писать testing::
+    // С‡С‚РѕР±С‹ РЅРµ РїРёСЃР°С‚СЊ testing::
     //using testing::InSequence;
     //using testing::Return;
 /*
-Тест. Простой тест переключения в состояние
-1. Срабатывания on_entry() при входе.
-2. Возврат времени check_change_state() == 16 при первом вхождении.
-3. Выполнение on_do()
-4. Возврат времени check_change_state() == 20 при втором выполнении. 
-5. Выполнение on_exit() при выходе.
+РўРµСЃС‚. РџСЂРѕСЃС‚РѕР№ С‚РµСЃС‚ РїРµСЂРµРєР»СЋС‡РµРЅРёСЏ РІ СЃРѕСЃС‚РѕСЏРЅРёРµ
+1. РЎСЂР°Р±Р°С‚С‹РІР°РЅРёСЏ on_entry() РїСЂРё РІС…РѕРґРµ.
+2. Р’РѕР·РІСЂР°С‚ РІСЂРµРјРµРЅРё check_change_state() == 16 РїСЂРё РїРµСЂРІРѕРј РІС…РѕР¶РґРµРЅРёРё.
+3. Р’С‹РїРѕР»РЅРµРЅРёРµ on_do()
+4. Р’РѕР·РІСЂР°С‚ РІСЂРµРјРµРЅРё check_change_state() == 20 РїСЂРё РІС‚РѕСЂРѕРј РІС‹РїРѕР»РЅРµРЅРёРё. 
+5. Р’С‹РїРѕР»РЅРµРЅРёРµ on_exit() РїСЂРё РІС‹С…РѕРґРµ.
 */
     TEST(YellowStateTest, SwitchToRedWhenTimeout)
     {
@@ -107,13 +107,13 @@ namespace TestTransition{
         //EXPECT_CALL(mock, check_change_state())
         //    .WillOnce(::testing::Return(10))
         //    .WillOnce(::testing::Return(20));
-        // Описываем порядок вызова. Именно тот ожидаемый порядок
-        // который будет при выполнении.
+        // РћРїРёСЃС‹РІР°РµРј РїРѕСЂСЏРґРѕРє РІС‹Р·РѕРІР°. РРјРµРЅРЅРѕ С‚РѕС‚ РѕР¶РёРґР°РµРјС‹Р№ РїРѕСЂСЏРґРѕРє
+        // РєРѕС‚РѕСЂС‹Р№ Р±СѓРґРµС‚ РїСЂРё РІС‹РїРѕР»РЅРµРЅРёРё.
         {
-            testing::InSequence seq; // чтобы видеть порядок
+            testing::InSequence seq; // С‡С‚РѕР±С‹ РІРёРґРµС‚СЊ РїРѕСЂСЏРґРѕРє
             EXPECT_CALL(mock, on_entry());
 
-            // первый раз возвращает 0, почему-то
+            // РїРµСЂРІС‹Р№ СЂР°Р· РІРѕР·РІСЂР°С‰Р°РµС‚ 0, РїРѕС‡РµРјСѓ-С‚Рѕ
             EXPECT_CALL(mock, check_change_state())     // #1
                 .WillOnce(testing::Return(16));
 
@@ -123,7 +123,7 @@ namespace TestTransition{
                 .WillOnce(testing::Return(20));
 
             EXPECT_CALL(mock, on_exit());
-            //EXPECT_CALL(mock, on_exit()); // покажет что не вызывается.
+            //EXPECT_CALL(mock, on_exit()); // РїРѕРєР°Р¶РµС‚ С‡С‚Рѕ РЅРµ РІС‹Р·С‹РІР°РµС‚СЃСЏ.
             //EXPECT_CALL(mock, on_do()).Times(1);
         }
         StateSemaforo s{};
@@ -142,15 +142,15 @@ namespace TestTransition{
         ASSERT_STREQ(s.name, "red_state");
     }
 /*
-Тест запуска on_do каждый раз при выполнении состояния
-1. При первом вхождении выполняется on_enrty один раз.
-2. При первом вхождении check_change_state возвращает 0.
+РўРµСЃС‚ Р·Р°РїСѓСЃРєР° on_do РєР°Р¶РґС‹Р№ СЂР°Р· РїСЂРё РІС‹РїРѕР»РЅРµРЅРёРё СЃРѕСЃС‚РѕСЏРЅРёСЏ
+1. РџСЂРё РїРµСЂРІРѕРј РІС…РѕР¶РґРµРЅРёРё РІС‹РїРѕР»РЅСЏРµС‚СЃСЏ on_enrty РѕРґРёРЅ СЂР°Р·.
+2. РџСЂРё РїРµСЂРІРѕРј РІС…РѕР¶РґРµРЅРёРё check_change_state РІРѕР·РІСЂР°С‰Р°РµС‚ 0.
 
-Далее идут последующие вхождения:
-3. Выполняется on_do TIMES_TO_RUN.
-4. На последующих вхождения check_change_state возвращает 1.
-5. На последнем вхождении check_change_state возвращает 3.
-6. Выполняется on_exit().
+Р”Р°Р»РµРµ РёРґСѓС‚ РїРѕСЃР»РµРґСѓСЋС‰РёРµ РІС…РѕР¶РґРµРЅРёСЏ:
+3. Р’С‹РїРѕР»РЅСЏРµС‚СЃСЏ on_do TIMES_TO_RUN.
+4. РќР° РїРѕСЃР»РµРґСѓСЋС‰РёС… РІС…РѕР¶РґРµРЅРёСЏ check_change_state РІРѕР·РІСЂР°С‰Р°РµС‚ 1.
+5. РќР° РїРѕСЃР»РµРґРЅРµРј РІС…РѕР¶РґРµРЅРёРё check_change_state РІРѕР·РІСЂР°С‰Р°РµС‚ 3.
+6. Р’С‹РїРѕР»РЅСЏРµС‚СЃСЏ on_exit().
 
 */
     TEST(YellowStateTest, testOnDo)
@@ -159,48 +159,48 @@ namespace TestTransition{
         g_mock = &mock;
         const auto TIMES_TO_RUN = 1000;
 
-        //// решение в лоб, но съедает стек. При TIMES_TO_RUN = 1000 переполнение стека
+        //// СЂРµС€РµРЅРёРµ РІ Р»РѕР±, РЅРѕ СЃСЉРµРґР°РµС‚ СЃС‚РµРє. РџСЂРё TIMES_TO_RUN = 1000 РїРµСЂРµРїРѕР»РЅРµРЅРёРµ СЃС‚РµРєР°
         //// START BRUTFORCE
         //{
-        //    testing::InSequence seq; // Включаем строгий режим
+        //    testing::InSequence seq; // Р’РєР»СЋС‡Р°РµРј СЃС‚СЂРѕРіРёР№ СЂРµР¶РёРј
 
-        //    // 1. Вход
+        //    // 1. Р’С…РѕРґ
         //    EXPECT_CALL(mock, on_entry()).Times(1);
 
-        //    // 2. Первый проход (специфичный, check возвращает 0)
+        //    // 2. РџРµСЂРІС‹Р№ РїСЂРѕС…РѕРґ (СЃРїРµС†РёС„РёС‡РЅС‹Р№, check РІРѕР·РІСЂР°С‰Р°РµС‚ 0)
         //    EXPECT_CALL(mock, check_change_state())
         //        .WillOnce(testing::Return(0));
 
         //    EXPECT_CALL(mock, on_do()).Times(1);
 
         //    EXPECT_CALL(mock, check_change_state())
-        //        .WillOnce(testing::Return(1)); // Возвращаем 1 ровно 1 раз
+        //        .WillOnce(testing::Return(1)); // Р’РѕР·РІСЂР°С‰Р°РµРј 1 СЂРѕРІРЅРѕ 1 СЂР°Р·
 
-        //    // 3. Цикл чередования (со 2-го по предпоследний раз)
-        //    // Мы генерируем "бусы" ожиданий: Do -> Check -> Do -> Check ...
+        //    // 3. Р¦РёРєР» С‡РµСЂРµРґРѕРІР°РЅРёСЏ (СЃРѕ 2-РіРѕ РїРѕ РїСЂРµРґРїРѕСЃР»РµРґРЅРёР№ СЂР°Р·)
+        //    // РњС‹ РіРµРЅРµСЂРёСЂСѓРµРј "Р±СѓСЃС‹" РѕР¶РёРґР°РЅРёР№: Do -> Check -> Do -> Check ...
         //    for (int i = 0; i < TIMES_TO_RUN - 2; ++i) {
         //        EXPECT_CALL(mock, on_do())
-        //            .Times(1); // Ждем ровно 1 раз
+        //            .Times(1); // Р–РґРµРј СЂРѕРІРЅРѕ 1 СЂР°Р·
 
         //        EXPECT_CALL(mock, check_change_state())
-        //            .WillOnce(testing::Return(1)); // Возвращаем 1 ровно 1 раз
+        //            .WillOnce(testing::Return(1)); // Р’РѕР·РІСЂР°С‰Р°РµРј 1 СЂРѕРІРЅРѕ 1 СЂР°Р·
         //    }
 
-        //    // 4. Последний проход (check возвращает 3/5)
+        //    // 4. РџРѕСЃР»РµРґРЅРёР№ РїСЂРѕС…РѕРґ (check РІРѕР·РІСЂР°С‰Р°РµС‚ 3/5)
         //    EXPECT_CALL(mock, on_do()).Times(1);
         //    EXPECT_CALL(mock, check_change_state())
-        //        .WillOnce(testing::Return(5)); // Код выхода
+        //        .WillOnce(testing::Return(5)); // РљРѕРґ РІС‹С…РѕРґР°
 
-        //    // 5. Выход
+        //    // 5. Р’С‹С…РѕРґ
         //    EXPECT_CALL(mock, on_exit()).Times(1);
         //}
         //// END BRUTFORCE
-    // Флаг для проверки чередования.
-    // false = ждем on_do
-    // true  = ждем check_change_state
+    // Р¤Р»Р°Рі РґР»СЏ РїСЂРѕРІРµСЂРєРё С‡РµСЂРµРґРѕРІР°РЅРёСЏ.
+    // false = Р¶РґРµРј on_do
+    // true  = Р¶РґРµРј check_change_state
         bool waiting_for_check = true;
 
-        // Переменная для подсчета вызовов check
+        // РџРµСЂРµРјРµРЅРЅР°СЏ РґР»СЏ РїРѕРґСЃС‡РµС‚Р° РІС‹Р·РѕРІРѕРІ check
         int check_calls = 0;
         int check_1 = 0;
         int check_2 = 0;
@@ -209,48 +209,48 @@ namespace TestTransition{
             testing::InSequence seq;
             EXPECT_CALL(mock, on_entry()).Times(1);
 
-            // Дальше мы не используем InSequence для тела цикла,
-            // так как порядок мы контролируем флагом waiting_for_check
+            // Р”Р°Р»СЊС€Рµ РјС‹ РЅРµ РёСЃРїРѕР»СЊР·СѓРµРј InSequence РґР»СЏ С‚РµР»Р° С†РёРєР»Р°,
+            // С‚Р°Рє РєР°Рє РїРѕСЂСЏРґРѕРє РјС‹ РєРѕРЅС‚СЂРѕР»РёСЂСѓРµРј С„Р»Р°РіРѕРј waiting_for_check
         }
 
-        // == Настройка поведения on_do ==
-        // Он вызывается между проверками.
-        // Всего вызовов на 1 меньше, чем проверок (так как последняя проверка уводит на выход)
+        // == РќР°СЃС‚СЂРѕР№РєР° РїРѕРІРµРґРµРЅРёСЏ on_do ==
+        // РћРЅ РІС‹Р·С‹РІР°РµС‚СЃСЏ РјРµР¶РґСѓ РїСЂРѕРІРµСЂРєР°РјРё.
+        // Р’СЃРµРіРѕ РІС‹Р·РѕРІРѕРІ РЅР° 1 РјРµРЅСЊС€Рµ, С‡РµРј РїСЂРѕРІРµСЂРѕРє (С‚Р°Рє РєР°Рє РїРѕСЃР»РµРґРЅСЏСЏ РїСЂРѕРІРµСЂРєР° СѓРІРѕРґРёС‚ РЅР° РІС‹С…РѕРґ)
         EXPECT_CALL(mock, on_do())
         .Times(TIMES_TO_RUN-1)
         .WillRepeatedly(testing::Invoke([&]() -> void {
-            // Если пришли в on_do, а ждали check (значит два on_do подряд или забыли check)
+            // Р•СЃР»Рё РїСЂРёС€Р»Рё РІ on_do, Р° Р¶РґР°Р»Рё check (Р·РЅР°С‡РёС‚ РґРІР° on_do РїРѕРґСЂСЏРґ РёР»Рё Р·Р°Р±С‹Р»Рё check)
             if (waiting_for_check) {
                 ADD_FAILURE() << "Order violation: on_do called when check was expected!";
                 return;
             }
-            // Теперь мы выполнили работу, следующей должна быть проверка
+            // РўРµРїРµСЂСЊ РјС‹ РІС‹РїРѕР»РЅРёР»Рё СЂР°Р±РѕС‚Сѓ, СЃР»РµРґСѓСЋС‰РµР№ РґРѕР»Р¶РЅР° Р±С‹С‚СЊ РїСЂРѕРІРµСЂРєР°
             waiting_for_check = true;
             check_1++;
             }));
 
-        // == Настройка поведения check_change_state ==
+        // == РќР°СЃС‚СЂРѕР№РєР° РїРѕРІРµРґРµРЅРёСЏ check_change_state ==
         EXPECT_CALL(mock, check_change_state())
         .Times(TIMES_TO_RUN) 
         .WillRepeatedly(testing::Invoke([&]() -> int {
-            // Если пришли в check, а ждали on_do (значит два check подряд)
+            // Р•СЃР»Рё РїСЂРёС€Р»Рё РІ check, Р° Р¶РґР°Р»Рё on_do (Р·РЅР°С‡РёС‚ РґРІР° check РїРѕРґСЂСЏРґ)
             if (!waiting_for_check) {
                 ADD_FAILURE() << "Order violation: check called when on_do was expected! " << check_calls;
                 return 0;
             }
 
-            // Проверка выполнена, теперь разрешаем on_do
+            // РџСЂРѕРІРµСЂРєР° РІС‹РїРѕР»РЅРµРЅР°, С‚РµРїРµСЂСЊ СЂР°Р·СЂРµС€Р°РµРј on_do
             waiting_for_check = false;
 
             check_calls++;
 
-            // Сценарий возвращаемых значений:
-            if (check_calls == 1) return 0;             // Первый вход
-            if (check_calls == TIMES_TO_RUN) return 5;  // Последний вход -> выход
-            return 1;                                   // Обычная работа
+            // РЎС†РµРЅР°СЂРёР№ РІРѕР·РІСЂР°С‰Р°РµРјС‹С… Р·РЅР°С‡РµРЅРёР№:
+            if (check_calls == 1) return 0;             // РџРµСЂРІС‹Р№ РІС…РѕРґ
+            if (check_calls == TIMES_TO_RUN) return 5;  // РџРѕСЃР»РµРґРЅРёР№ РІС…РѕРґ -> РІС‹С…РѕРґ
+            return 1;                                   // РћР±С‹С‡РЅР°СЏ СЂР°Р±РѕС‚Р°
             }));
 
-        // == Выход ==
+        // == Р’С‹С…РѕРґ ==
         EXPECT_CALL(mock, on_exit()).Times(1);
 
 

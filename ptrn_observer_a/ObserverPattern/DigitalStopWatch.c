@@ -1,9 +1,10 @@
-#include "DigitalStopWatch.h"
-#include "TimeObserver.h"
-#include "TimeSubject.h"
 #include <assert.h>
 #include <stddef.h>
 #include <stdlib.h>
+
+#include "SystemTime.h"
+#include "TimeSubject.h"
+#include "DigitalStopWatch.h"
 
 /*
 I never really dive into the details of this type.
@@ -12,6 +13,7 @@ Let's just create a dummy placeholder for the information.
 typedef struct 
 {
   int someDisplayAttributes;
+  long int selfTime;
 } Display;
 
 struct DigitalStopWatch 
@@ -26,6 +28,7 @@ static void updateDisplay(DigitalStopWatchPtr watch,
                           const SystemTime* newTime)
 {
   Display* display = &watch->watchDisplay;
+  watch->watchDisplay.selfTime = newTime->theTime; // обновляем время для часов
   /* Do the update...*/
 }
 
@@ -43,6 +46,7 @@ DigitalStopWatchPtr createDigitalWatch(void)
   DigitalStopWatchPtr watch = malloc(sizeof *watch);
   printf("DigitalStopWatchPtr 0x%X\n", watch);
   if(NULL != watch) {
+      watch->watchDisplay.selfTime = 0;
     /* Successfully created -> attach to the subject. */
     TimeObserver observer = {0};
     observer.instance = watch;
@@ -51,6 +55,10 @@ DigitalStopWatchPtr createDigitalWatch(void)
   }
 
   return watch; 
+}
+
+long int currentTime(DigitalStopWatchPtr w) {
+    return w->watchDisplay.selfTime;
 }
 
 void destroyDigitalWatch(DigitalStopWatchPtr watch)

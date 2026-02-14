@@ -1,11 +1,11 @@
 #pragma once
 
-// события перехода в каждое состояние
+// СЃРѕР±С‹С‚РёСЏ РїРµСЂРµС…РѕРґР° РІ РєР°Р¶РґРѕРµ СЃРѕСЃС‚РѕСЏРЅРёРµ
 typedef void (*EventUpFunc) (SignalStatePtr, StateEvents);
 typedef void (*EventDownFunc) (SignalStatePtr, StateEvents);
 typedef void (*EventWaitFunc) (SignalStatePtr, StateEvents);
 
-// внутреннее состояние машины
+// РІРЅСѓС‚СЂРµРЅРЅРµРµ СЃРѕСЃС‚РѕСЏРЅРёРµ РјР°С€РёРЅС‹
 struct SignalState {
 	char* name;
 	EventUpFunc up;

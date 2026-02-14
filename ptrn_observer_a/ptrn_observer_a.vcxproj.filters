@@ -15,25 +15,28 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="TimeSource.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="DigitalStopWatch.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ptrn_observer_a.cpp" />
+    <ClCompile Include="ObserverPattern\DigitalStopWatch.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ObserverPattern\TimeSource.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ObserverPattern\TimeObserver.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TimeSubject.h">
+    <ClInclude Include="Includes\DigitalStopWatch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TimeObserver.h">
+    <ClInclude Include="Includes\SystemTime.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SystemTime.h">
+    <ClInclude Include="ObserverPattern\TimeObserver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DigitalStopWatch.h">
+    <ClInclude Include="ObserverPattern\TimeSubject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

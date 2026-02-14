@@ -4,7 +4,7 @@
 typedef struct SignalState* SignalStatePtr;
 
 
-// Структура событий состояния
+// РЎС‚СЂСѓРєС‚СѓСЂР° СЃРѕР±С‹С‚РёР№ СЃРѕСЃС‚РѕСЏРЅРёСЏ
 typedef struct StateEvents {
 	void (*on_entry)(void);
 	void (*on_do)(void);

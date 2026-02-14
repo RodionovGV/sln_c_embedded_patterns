@@ -17,7 +17,7 @@ extern "C" {
 //#include "state_yellow.h"
 #include "state_red_yellow.h"
 
-// локальные данные состояния
+// Р»РѕРєР°Р»СЊРЅС‹Рµ РґР°РЅРЅС‹Рµ СЃРѕСЃС‚РѕСЏРЅРёСЏ
 static TState_Data s_data = { .first_entry = 1,
                       .workStateStartTime = 0,
                       .workTicksState = 0 };
@@ -63,9 +63,9 @@ static void red_state(StateSemaforoPtr s, StateSemEvents events){
 		goto exit_from_state;
 	}
 	
-	return; // выходим
+	return; // РІС‹С…РѕРґРёРј
 
-	// выполняется только при выходе из состояния
+	// РІС‹РїРѕР»РЅСЏРµС‚СЃСЏ С‚РѕР»СЊРєРѕ РїСЂРё РІС‹С…РѕРґРµ РёР· СЃРѕСЃС‚РѕСЏРЅРёСЏ
 exit_from_state:
     LOG_DBG_TEXT("Red state EXIT");
     init_state(&s_data);

@@ -129,6 +129,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ObserverPattern\DigitalStopWatch.c" />
+    <ClCompile Include="ObserverPattern\TimeObserver.c" />
     <ClCompile Include="ObserverPattern\TimeSource.c" />
     <ClCompile Include="ptrn_observer_a.cpp" />
   </ItemGroup>

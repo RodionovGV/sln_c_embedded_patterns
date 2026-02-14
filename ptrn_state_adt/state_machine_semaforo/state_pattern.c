@@ -13,10 +13,10 @@ extern "C" {
 #include "states_semaforo_internal.h" // states_XXX_internal.h
 
 
-// состояние в которое можем перейти из текущего 
+// СЃРѕСЃС‚РѕСЏРЅРёРµ РІ РєРѕС‚РѕСЂРѕРµ РјРѕР¶РµРј РїРµСЂРµР№С‚Рё РёР· С‚РµРєСѓС‰РµРіРѕ 
 //#include "state_red.h"
 
-// локальные данные состояния
+// Р»РѕРєР°Р»СЊРЅС‹Рµ РґР°РЅРЅС‹Рµ СЃРѕСЃС‚РѕСЏРЅРёСЏ
 static TState_Data s_data = {.first_entry = 1,
                       .workStateStartTime = 0,
                       .workTicksState = 0};
